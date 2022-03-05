@@ -1,0 +1,69 @@
+<div class="menu-item">
+    <a href="/">
+        <img src="/img/logo_maxico.png" alt="imagen del logo de maxico">
+    </a>
+
+    <form class="form-search" action="/pedidos/page">
+        <h2>Buscar por:</h2>
+        <div>
+            <label>Pedido</label>
+            <input class="clean" type="number" name="pedido" id="pedido" value="<% if(locals.pedido) {%><%=locals.pedido%><% } %>">
+        </div>
+        <div>
+            <label>Cliente</label>
+            <input class="clean" type="number" name="cliente" id="cliente" value="<% if(locals.cliente) {%><%=locals.cliente%><% } %>">
+        </div>
+        <div>
+            <label>Vendedor</label>
+
+            <select class="clean" name="vendedor" id="vendedor">
+                <option value="default" <% if(!locals.vendedor) {%> <%= "selected"  %><% } %>></option>
+                <option value="027" <% if(locals.vendedor == '027') {%> <%= "selected"  %><% } %> >027 - Rosina Carballo</option>
+                <option value="025" <% if(locals.vendedor == '025') {%> <%= "selected"  %><% } %> >025 - Suñer Jose</option>
+                <option value="023" <% if(locals.vendedor == '023') {%> <%= "selected"  %><% } %> >023 - Perri Pablo</option>
+                <option value="005" <% if(locals.vendedor == '005') {%> <%= "selected"  %><% } %> >005 - Reartes Sergio</option>
+            </select>
+        </div>
+        <div>
+            <label>Estado</label>
+
+            <select class="clean" name="estado" id="estado">
+                <option value="default" <% if(!locals.estado) {%> <%= "selected"  %><% } %>></option>
+                <option value="G" <% if(locals.estado == 'G') {%> <%= "selected"  %><% } %> >G - Generado</option>
+                <option value="X" <% if(locals.estado == 'X') {%> <%= "selected"  %><% } %> >X - Anulado</option>
+                <option value="I" <% if(locals.estado == 'I') {%> <%= "selected"  %><% } %> >I - Impreso</option>
+                <option value="A" <% if(locals.estado == 'A') {%> <%= "selected"  %><% } %> >A - Pendiente</option>
+            </select>
+        </div>
+        <div>
+            <label>Ruta</label>
+
+            <select class="clean" name="ruta" id="ruta">
+                <option value="default" <% if(!locals.ruta) {%> <%= "selected"  %><% } %>    ></option>
+                <option value="00" <% if(locals.ruta == '00') {%> <%= "selected"  %><% } %> >00 - MOSTRADOR</option>
+                <option value="01" <% if(locals.ruta == '01') {%> <%= "selected"  %><% } %> >01 - SANTA FE</option>
+                <option value="02" <% if(locals.ruta == '02') {%> <%= "selected"  %><% } %> >02 - ENTRE RIOS NORTE</option>
+                <option value="03" <% if(locals.ruta == '03') {%> <%= "selected"  %><% } %> >03 - ENTRE RIOS SUR</option>
+                <option value="04" <% if(locals.ruta == '04') {%> <%= "selected"  %><% } %> >04 - CORDOBA</option>
+                <option value="05" <% if(locals.ruta == '05') {%> <%= "selected"  %><% } %> >05 - NORTE</option>
+                <option value="06" <% if(locals.ruta == '06') {%> <%= "selected"  %><% } %> >06 - RAFAELA</option>
+                <option value="07" <% if(locals.ruta == '07') {%> <%= "selected"  %><% } %> >07 - SANTA FE - BOLCATTO</option>
+               <option value="08" <% if(locals.ruta == '08') {%> <%= "selected"  %><% } %> >08 - SANTO TOME</option>
+        </select>
+        </div>
+        <div>
+            <label>Fecha desde</label>
+            <input class="clean" type="date" name="fecha_desde" id="fecha_desde" value="<% if(locals.fecha_desde) {%><%= locals.fecha_desde %><% } %>">
+        </div>
+        <div>
+            <label>Fecha hasta</label>
+            <input class="clean" type="date" name="fecha_hasta" id="fecha_hasta" value="<% if(locals.fecha_hasta) {%><%= locals.fecha_hasta %><% } %>">
+
+        </div>
+        <button class="btn-submit" type="submit">Buscar</button>
+        <div class="img-clean">
+            <img src="/img/icon/icon-clean.png" alt="icono de limpieza de formulario">
+        </div>
+
+    </form>
+</div>

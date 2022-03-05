@@ -1,0 +1,39 @@
+<%- include('partials/head', {title: "Pedidos Remotos"}) %>
+    </head>
+
+    <body>
+        <div class="div-container">
+            <%- include('partials/headersearch')  %>
+                <div class="data-item">
+                    <div class="pedidos-encabezado">
+                        <div class="titulo-encabezado">
+                            <h2>PEDIDOS REMOTOS</h2>
+                            <h3>Cantidad de pedidos:
+                                <%= (locals.cant_ped) ? locals.cant_ped : 0 %>
+                            </h3>
+                        </div>
+                        <div class="pedidos-encabezado__title">
+                            <div>Pedido</div>
+                            <div>Cliente</div>
+                            <div>Nombre del Cliente</div>
+                            <div>Vendedor</div>
+                            <div>Estado</div>
+                            <div>Ruta</div>
+                            <div>Fecha</div>
+                            <div></div>
+                        </div>
+                        <% if(locals.message) {%>
+                            <div class="error_message">
+                                <span><%= locals.message %> </span>
+                            </div>
+                            <% }else{%>
+
+                                <%- include('partials/pedidos', {data: locals.data, cant_ped: locals.cant_ped, conditionQuery: locals.conditionQuery, offset: locals.offset, limit: locals.limit, currentPage: locals.currentPage, pages: locals.pages, pedido: locals.pedido, cliente: locals.cliente, vendedor: locals.vendedor, estado: locals.estado, ruta: locals.ruta, fecha_desde: locals.fecha_desde, fecha_hasta: locals.fecha_hasta })%>
+                                    <% } %>
+                    </div>
+                </div>
+        </div>
+
+    </body>
+
+    </html>

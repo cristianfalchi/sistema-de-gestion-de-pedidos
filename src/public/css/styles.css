@@ -1,0 +1,732 @@
+/* Variables */
+
+:root {
+    --color-transparent: rgb(212, 138, 138);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    position: relative;
+}
+
+.navbar {
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.logo {
+    display: block;
+    width: 200px;
+    margin: auto;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons button:hover {
+    background-color: grey;
+    transition: background-color .5s;
+}
+
+
+/* --- */
+
+
+/* --- */
+
+
+/* start ---pedidosremotos--- */
+
+.div-container {
+    display: flex;
+    height: 100vh;
+}
+
+
+/* no display-flex */
+
+.menu-item {
+    background-color: white;
+    max-width: 319px;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.menu-item img {
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+.form-search {
+    text-align: right;
+    margin: 0 15px;
+}
+
+.form-search h2 {
+    text-align: center;
+}
+
+.form-search div {
+    margin: 20px 0px;
+}
+
+.form-search input {
+    height: 30px;
+    border-radius: 5px;
+}
+
+.form-search select {
+    height: 30px;
+    border-radius: 5px;
+}
+
+.btn-submit {
+    width: 100%;
+    height: 40px;
+    background-color: #48e;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.img-clean {
+    width: 20px;
+    height: 25px;
+}
+
+.img-clean img {
+    width: 100%;
+    height: 100%;
+    margin-left: 55px;
+    cursor: pointer;
+}
+
+.img-clean:hover {
+    width: 25px;
+    height: 30px;
+}
+
+.btn-submit:hover {
+    background-color: #45e;
+    transition: 0.3s;
+}
+
+.search {
+    height: 30px;
+}
+
+.data-item {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: rgb(231, 244, 248);
+    padding-top: 100px;
+}
+
+.pedidos-encabezado {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 77%;
+    margin-top: -95px;
+    min-width: 900px;
+}
+
+.pedidos-encabezado form {
+    background-color: beige;
+}
+
+.titulo-encabezado {
+    display: flex;
+    margin-bottom: 10px;
+    border-top: 1px solid black;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 7px;
+}
+
+.titulo-encabezado h3 {
+    padding: 1px;
+    margin: 5px 0px;
+    font-size: 15px;
+    font-style: italic;
+    margin-right: 50px;
+    text-align: right;
+}
+
+.pedidos-encabezado__title {
+    display: flex;
+    height: 45px;
+    align-items: center;
+    border: 1px solid black;
+    background-color: #48e;
+    color: #fff;
+}
+
+.pedidos-encabezado__title div {
+    flex: 1 1 100px;
+    text-align: center;
+}
+
+.all-pedidos {
+    width: 100%;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    height: 500px;
+}
+
+.one-pedido {
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.one-pedido div {
+    flex: 1 1 100px;
+    text-align: center;
+}
+
+.one-pedido:hover {
+    background-color: grey;
+    transition: background-color .5s;
+}
+
+
+/* end ---pedidosremotos--- */
+
+.selection_pedido {
+    background-color: black;
+    color: white;
+}
+
+.icon-edit {
+    width: 30px;
+}
+
+.icon-edit:hover {
+    width: 35px;
+}
+
+.btn-a {
+    border: 1px solid black;
+    width: 80%;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+    font-size: 30px;
+    background-color: lightgrey;
+    margin-top: 30px;
+    cursor: default;
+}
+
+.buttons .btn-a:hover {
+    background-color: grey;
+    transition: background-color .5s;
+}
+
+
+/* ----messages */
+
+.error_message {
+    padding: 10px;
+    font-size: 20px;
+    color: red;
+}
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+}
+
+.paginacion a {
+    margin: 5px;
+    padding: 8px;
+    background-color: #46e;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+}
+
+.paginacion a:hover {
+    color: rgb(251, 215, 170);
+    font-size: 17px;
+}
+
+.fin-paginacion {
+    pointer-events: none;
+    cursor: default;
+    opacity: 50%;
+}
+
+
+/* start -- detallepedidos */
+
+.encabezado-detalle-de-pedido {
+    display: flex;
+    /* flex-grow: 1; */
+    width: 100%;
+    background-color: #48e;
+    height: 45px;
+    align-items: center;
+    color: #fff;
+    padding-left: 5px;
+    text-align: center;
+}
+
+.encabezado-codigo {
+    min-width: 150px;
+    max-width: 160px;
+    flex-grow: 1;
+}
+
+.encabezado-descripcion {
+    min-width: 380px;
+    /* flex-grow: 1; */
+}
+
+.encabezado-precio {
+    min-width: 180px;
+}
+
+.encabezado-cantidad {
+    min-width: 200px;
+}
+
+.encabezado-operaciones {
+    min-width: 160px;
+}
+
+.form-aux {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.form-detalle-pedido {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* min-width: 900px; */
+    height: 450px;
+    border: 1px solid black;
+    overflow-y: scroll;
+    font-size: 14px;
+}
+
+.form-detalle-pedido__item {
+    display: flex;
+    align-items: center;
+}
+
+.color-white {
+    background-color: white;
+}
+
+.style-cod-product {
+    padding-left: 3px;
+    flex-grow: 1;
+    max-width: 160px;
+    cursor: text;
+    border: 0;
+    background: inherit;
+    border-left: 1px solid black;
+    height: 30px;
+}
+
+.style-precio-prod {
+    text-align: right;
+    padding-left: 3px;
+    flex-grow: 1;
+    min-width: 150px;
+    cursor: text;
+    border: 0;
+    background: inherit;
+    border-left: 1px solid black;
+    height: 30px;
+    padding-right: 3px;
+}
+
+.style-precio-prod:focus {
+    background-color: var(--color-transparent);
+    color: white;
+    outline: none;
+}
+
+.style-cod-product:focus {
+    background-color: var(--color-transparent);
+    color: white;
+    outline: none;
+}
+
+.style-description-prod {
+    padding-left: 3px;
+    flex-grow: 1;
+    min-width: 400px;
+    cursor: text;
+    border: 0;
+    background: inherit;
+    border-left: 1px solid black;
+    height: 30px;
+}
+
+.style-description-prod:focus {
+    background-color: var(--color-transparent);
+    color: white;
+    outline: none;
+}
+
+.style-cantidad-ingresada {
+    font-size: 17px;
+    font-weight: bold;
+    text-align: right;
+    cursor: text;
+    flex-grow: 1;
+    min-width: 170px;
+    border: 0;
+    border-left: 1px solid black;
+    background: inherit;
+    padding-right: 3px;
+    height: 30px;
+}
+
+.style-cantidad-ingresada:focus {
+    background-color: var(--color-transparent);
+    color: white;
+    outline: none;
+}
+
+.icons-operations {
+    display: flex;
+    flex-grow: 1;
+    border-left: 1px solid black;
+    height: 30px;
+    min-width: 250px;
+}
+
+
+/* para sacar las flechas en el input type number en los navegadores */
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.encabezado-cantidad {
+    text-align: center;
+}
+
+.icon-operation {
+    width: 23px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+.icon-operation:hover {
+    border: 1px solid black;
+}
+
+.icon-save-and-cancel {
+    display: flex;
+    height: 70px;
+    width: 96%;
+    justify-content: space-between;
+}
+
+.div-add-item {
+    display: flex;
+    align-items: center;
+    min-width: 26%;
+    cursor: pointer;
+}
+
+.img-add-item {
+    width: 55px;
+    margin: 0px 10px;
+    padding: 5px;
+}
+
+.img-add-item:focus {
+    background-color: rgb(214, 201, 186);
+    border-radius: 10px;
+}
+
+.div-save-item {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 200px;
+    margin-top: 5px;
+}
+
+.div-save-item input:focus {
+    background-color: rgb(214, 201, 186);
+    border-radius: 10px;
+}
+
+.div-save-item input {
+    margin: 15px 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.img-btn-save {
+    width: 70px;
+}
+
+.img-btn-cancel {
+    width: 55px;
+}
+
+.info-pedido {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    padding: 6px;
+    min-width: 900px;
+}
+
+.menu {
+    display: flex;
+    font-family: sans-serif;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+.btn-menu {
+    width: 100px !important;
+}
+
+#menu li>a {
+    background-color: grey;
+    color: white;
+    padding: 10px;
+    display: block;
+    width: 175px;
+    text-decoration: none;
+}
+
+#menu li>a:hover {
+    color: black;
+    background-color: #eaeaea;
+}
+
+#menu>li {
+    float: left;
+    text-align: center;
+    right: 20px;
+}
+
+#menu>li>ul {
+    position: absolute;
+    display: none;
+    width: 200px;
+    right: 5px;
+}
+
+#menu>li:hover>ul {
+    display: block;
+}
+
+.text-transparente {
+    color: transparent;
+}
+
+.container-img-loading {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    opacity: 0.5;
+    z-index: 100;
+    background-color: rgb(245, 245, 252);
+    display: none;
+}
+
+.img-loading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 200px;
+    border-radius: 20px;
+}
+
+.select-estado {
+    border-radius: 8px;
+    width: 55px;
+    padding-left: 7px;
+}
+
+.container-msg-vacio {
+    display: flex;
+    margin: auto;
+    align-items: center;
+    position: absolute;
+    left: 300px;
+    z-index: 101;
+    height: 100vh;
+    width: 80%;
+    display: none;
+}
+
+.msg-campo-vacio {
+    background-color: rgb(233, 217, 197);
+    height: 100px;
+    width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 7px;
+    padding-left: 10px;
+}
+
+.msg-campo-vacio a {
+    text-decoration: none;
+    align-self: flex-start;
+    font-size: 20px;
+    color: rgb(138, 120, 98);
+    font-weight: bold;
+    margin-bottom: 60px;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
+.msg-campo-vacio a:hover {
+    color: rgb(85, 74, 61)
+}
+
+.msg-campo-vacio p {
+    margin-top: 15px;
+}
+
+.msg-campo-vacio img {
+    width: 40px;
+    margin-left: 5px;
+}
+
+
+/* Cartel eliminar item */
+
+.div-container-msg-confirmacion {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 300px;
+    z-index: 102;
+    height: 100vh;
+    width: 80%;
+    display: none;
+}
+
+.div-msg-confirmacion {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 140px;
+    margin: auto;
+    border-radius: 7px;
+    background-color: rgb(233, 217, 197);
+}
+
+.img-confirmacion-op {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    padding-top: 10px;
+}
+
+.img-confirmacion-op img {
+    width: 40px;
+    margin-right: 10px;
+    /* margin-left: 5px; */
+    /* margin-left: 56px; */
+}
+
+.img-confirmacion-op p {
+    margin: 0;
+}
+
+.img-confirmacion-op a:hover {
+    color: rgb(85, 74, 61);
+}
+
+.btn-confirmar-op {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.btn-confirmar-op button {
+    background-color: rgb(185, 162, 133);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.btn-confirmar-op button:hover {
+    background-color: rgb(165, 135, 99);
+}
+
+.background-color-delete {
+    background-color: lightblue;
+}
+
+
+/* para los campos invalidos */
+
+.div-one-item input:invalid:required {
+    background-image: linear-gradient(to right, pink, lightgreen);
+}
+
+.alert-msg-save {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    display: none;
+}
+
+.alert-msg-save img {
+    margin-right: 8px;
+    width: 25px;
+}
+
+.alert-msg-other {
+    margin-top: 5px;
+}
+
+.hidden {
+    display: none;
+}

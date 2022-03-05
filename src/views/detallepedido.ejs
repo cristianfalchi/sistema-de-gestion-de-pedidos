@@ -1,0 +1,145 @@
+<%- include('partials/head', {title: "Detalle de pedido"}) %>
+    <!-- <script src="/js/scryptAux.js" defer></script> -->
+    <script src="/js/scryptDetallePedido.js" defer></script>
+    </head>
+
+    <body>
+        <div hidden>
+            <input id="datos-pedido" type="text" value="<%= locals.pedido %>-<%= locals.cliente %>-<%= locals.vendedor %>-<%= locals.estado %>-<%= locals.ruta %>-<%= locals.fecha_desde %>-<%= locals.fecha_hasta %>-<%= locals.escaneado %>-<%= locals.nroCliente %>-<%= locals.nroPedido %>-<%= locals.rutaPedido %>">
+        </div>
+        <div class="div-container-msg-confirmacion">
+            <div class="div-msg-confirmacion">
+                <div class="img-confirmacion-op">
+                    <img class="img-message-confirmacion" src="/img/icon/triangle-exclamation-solid.svg" alt="">
+                    <p id="msg-save-or-delete"></p>
+
+                </div>
+                <div class="btn-confirmar-op">
+                    <button class="btn-aceptar">Aceptar</button>
+                    <button class="btn-cancelar">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-msg-vacio">
+            <div class="msg-campo-vacio">
+                <img src="/img/icon/circle-exclamation-solid.svg" alt="">
+                <p id="msg-warning"></p>
+                <a onclick="{this.parentNode.parentNode.style.display = 'none'}" href="#">X</a>
+            </div>
+        </div>
+        <div class="container-img-loading">
+            <img class="img-loading" src="/img/icon/gif-save1.webp" alt="">
+        </div>
+        <% for( let i = 0; i < locals.dataProducts.length; i++) { %>
+            <div class="div-products" hidden>
+                <%= locals.dataProducts[i].producto+"*"+locals.dataProducts[i].pro_nom+"*"+locals.dataProducts[i].precio %>
+            </div>
+            <% } %>
+                <div class="div-container">
+                    <%- include('partials/headersearch')  %>
+                        <div class="data-item">
+                            <div class="pedidos-encabezado">
+                                <div class="titulo-encabezado">
+                                    <div class="info-pedido">
+
+                                        <h3>
+                                            Cliente:
+                                            <%= locals.nroCliente %> -
+                                                <%= locals.clientePedido %>
+                                        </h3>
+                                        <h3>
+                                            N° pedido:
+                                            <%= locals.nroPedido %>
+                                        </h3>
+                                        <h3>Fecha:
+                                            <%= locals.fechaPedido %>
+                                        </h3>
+                                        <h3>Escaneado:
+                                            <%= (locals.escaneado) ? "SI" : "NO" %>
+                                        </h3>
+                                        <h3>Estado:
+                                            <select form="form" name="estado" class="select-estado">
+                                        <option title="Generado" default><%=(locals.estadoPedido) %></option>
+                                        <option title="Generado" <%= (locals.estadoPedido == 'G') ? 'hidden' : ''  %> >G</option>
+                                        <option title="impreso" <%= (locals.estadoPedido == 'I') ? 'hidden' : ''  %> >I</option>
+                                        <option title="Pendiente" <%= (locals.estadoPedido == 'A') ? 'hidden' : ''  %> >A</option>
+                                        <option title="Anulado" <%= (locals.estadoPedido == 'X') ? 'hidden' : ''  %> >X</option>
+                                    </select>
+                                            <input form="form" id="estado_modificado" type="number" name="estado_modificado" hidden="true" value="0" />
+                                        </h3>
+                                        <h3>Vendedor:
+                                            <%= locals.vendedorPedido %>
+                                        </h3>
+                                        <h3>Ruta:
+                                            <%= locals.rutaPedido %>
+                                        </h3>
+                                        <h3>Cantidad de Items:
+                                            <%= locals.data.length %>
+                                        </h3>
+                                    </div>
+                                    <div class="menu">
+                                        <nav>
+                                            <ul id="menu">
+                                                <li><a class="btn-menu" href="">Menu</a>
+                                                    <ul>
+                                                        <li><a href="">Editar cliente</a></li>
+                                                        <li><a class="btn-delete-pedido" href="/pedidos/delete/<%= `${locals.nroPedido}/${locals.nroCliente}`%> ">Eliminar pedido</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <div class="encabezado-detalle-de-pedido">
+                                    <div class="encabezado-codigo">Codigo Producto</div>
+                                    <div class="encabezado-descripcion">Descripcion</div>
+                                    <div class="encabezado-precio">Precio</div>
+                                    <div class="encabezado-cantidad">Cantidad</div>
+                                    <div class="encabezado-operaciones"> Operaciones </div>
+                                </div>
+                                <form method="post" action="/pedidos/update/<%= locals.nroPedido %>/<%= locals.nroCliente%>?escaneado=<%= locals.escaneado%>&fecha=<%= locals.fechaPedido%>&cli_nom=<%= locals.clientePedido.toString()%>&ruta=<%= locals.rutaPedido%>&vendedor=<%= locals.vendedorPedido%>"
+                                    id="form" class="form-detalle-pedido">
+                                    <% for( let i = 0; i < locals.data.length; i++ ) { %>
+                                        <div id="item-<%= (i + 1) %>" class=" div-one-item form-detalle-pedido__item ">
+                                            <input id="<%= (4*i + 1) %>" min="1" name="producto" type="number" required class="p<%= (i + 1) %>  input-event cod-prod style-cod-product" value="<%= locals.data[i].producto  %>">
+                                            <input id="<%= (4*i + 2) %>" autocomplete="off" name="pro_nom" type="text" required class="d<%= (i + 1) %> input-event description-prod style-description-prod " value="<%= locals.data[i].pro_nom  %>">
+                                            <input id="<%= (4*i + 3) %>" min="0" autocomplete="off" name="precio" type="number" required class="m<%= (i + 1) %> input-event precio-prod style-precio-prod " step=".01" value="<%= locals.data[i].precio  %>">
+                                            <input id="<%= (4*i + 4) %>" min="0" name="cantidad" type="number" required class=" c<%= (i + 1) %> input-event cantidad-ingresada style-cantidad-ingresada" value="<%= (locals.data[i].cantidad >= 0) ? locals.data[i].cantidad : locals.data[i].ingresada %>">
+                                            <div class=" icons-operations">
+                                                <img id="delete-<%= (i + 1) %>" title="Eliminar item" class="icon-operation icon-operation-delete" src="/img/icon/trash-can-solid.svg">
+                                                <!-- implementar un solo input para manejar los tres estados -->
+                                                <input id="modificado-<%= (i + 1) %>" type="number" name="item_modificado" hidden="true" value="0" />
+                                                <input id="agregado-<%= (i + 1) %>" type="number" name="item_agregado" hidden="true" value="0" />
+                                                <input id="secuencia-<%= (i + 1) %>" type="number" name="item_secuencia" hidden="true" value="<%= locals.data[i].secuencia %>" />
+                                            </div>
+                                        </div>
+                                        <% } %>
+
+                                            <!-- codigo de items en asasaasas.ejs -->
+
+                                </form>
+                                <div class="icon-save-and-cancel">
+                                    <div class="div-add-item">
+                                        <input type="image" class="img-add-item" src="/img/icon/circle-plus-solid.svg" alt="">
+                                        <p class="p-add-item">Agregar nuevo producto</p>
+                                    </div>
+
+                                    <div class=" alert-msg-other alert <%= (locals.typeMsg) ? locals.typeMsg : 'hidden' %> " role="alert">
+                                        <%= locals.message %>
+                                    </div>
+                                    <div class=" alert-msg-save alert alert-dark" role="alert">
+                                        <img src="/img/icon/diskette_save.png"> Existen cambios por guardar!
+                                    </div>
+                                    <div class="div-save-item">
+                                        <input type="image" form="form" title="Guardar cambios" class="img-btn-save" src="/img/icon/check-solid.svg" alt="">
+                                        <input type="image" title="Cancelar cambios" class="img-btn-cancel" src="/img/icon/xmark-solid.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+    </body>
+
+    </html>

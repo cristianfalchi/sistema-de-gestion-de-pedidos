@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Pedidos Remotos</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="menu-item">
+            <img src="../img/logo_maxico.png" alt="">
+            <form class="form-search" action="/pedidos/search">
+                <h2 for="">Buscar por:</h2>
+                <div class="search form-search__client">
+
+                    <input type="text" name="cliente" id="cliente" placeholder="Nro cliente" value="<% if(locals.cliente) {%> <%= locals.cliente %> <% } %>">
+                </div>
+                <div class=" search form-search__pedido">
+
+                    <input type="text" name="pedido" id="pedido" placeholder="Nro pedido" value="<% if(locals.pedido) {%> <%= locals.pedido %> <% } %>">
+                </div>
+                <div class=" search form-search__fechas">
+                    <h4>Fecha desde</h4>
+                    <input type="date" name="fecha_desde" id="fecha_desde" value="<% if(locals.fecha_desde) {%> <%= locals.fecha_desde %> <% } %>">
+                    <h4>Fecha hasta</h4>
+                    <input type="date" name="fecha_hasta" id="fecha_hasta" value="<% if(locals.fecha_hasta) {%> <%= locals.fecha_hasta %> <% } %>">
+                </div>
+                <button class="form-search__btn" type="submit">Buscar</button>
+            </form>
+        </div>
+
+        <div class="data-item">
+            <div class="remitos-encabezado">
+                <h1>PEDIDOS REMOTOS</h1>
+                <div class="remitos-encabezado__title">
+                    <div>Nro pedido</div>
+                    <div>Fecha</div>
+                    <div>Nro de Cliente</div>
+                    <div>Nombre del Cliente</div>
+                    <div>Estado</div>
+                    <div>Cantidad de articulos </div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="all-pedidos">
+                <% if(locals.data) {  %>
+                    <% for(let i = 0; i < locals.data.length; i++) {%>
+                        <div class="one-pedido">
+
+                            <div id="pedido" style="cursor: default" ">
+                                <%= locals.data[i].pedido %>
+                            </div>
+                            <div id = "fecha " style="cursor: default ">
+                                <%= locals.data[i].fecha %>
+                            </div>
+                            <div id = "cliente " style="cursor: default ">
+                                <%= locals.data[i].cliente %>
+                            </div>
+                            <div id = "cli_nom " style="cursor: default ">
+                                <%= locals.data[i].cli_nom %>
+                            </div>
+                            <div id = "estado " style="cursor: default ">
+                                <%= locals.data[i].estado %>
+                            </div>
+                            <div id = "cant_prod " style="cursor: default ">
+                                <%= locals.data[i].cant_prod %>
+                            </div>
+                            <div>
+                                <a style="cursor: default " href="/pedidos/search/edit?pedido=<%=locals.data[i].pedido%>&cliente=
+                                <%=locals.data[i].cliente%>">
+                                    <img class="icon-edit" src="../img/icon/flecha-editar.svg " alt="Imagen para seleccionar fila ">
+                                    </a>
+
+                            </div>
+                        </div>
+                        <% } %>
+                            <% } %>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript " src="../js/scrypt.js "></script>
+
+
+</body>
+
+</html>
