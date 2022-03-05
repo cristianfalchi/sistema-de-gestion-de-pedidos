@@ -13,14 +13,6 @@ sequelize.authenticate()
         console.log("el error de conexcion es: " + error);
     })
 
-
-// PedidoModel.findAll()
-//     .then(pedidos => {
-//         console.log(pedidos.every(pedido => pedido instanceof PedidoModel));
-
-//     })
-
-
 // ---initializations---
 const app = express();
 
@@ -52,7 +44,6 @@ app.use(express.json());
 //     res.locals.flashs_error_message = req.flash('flash_error_message');
 //     next();
 // });
-
 
 
 // ---Routes---
