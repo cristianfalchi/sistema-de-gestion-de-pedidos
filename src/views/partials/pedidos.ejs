@@ -25,7 +25,7 @@
                 </div>
 
                 <div>
-                    <a style="cursor: default" href=<%=`/pedidos/edit/${locals.data[i].pedido}/${locals.data[i].cliente}/${locals.data[i].ruta}?pedido=${locals.pedido}&cliente=${locals.cliente}&vendedor=${locals.vendedor}&estado=${locals.estado}&ruta=${locals.ruta}&fecha_desde=${locals.fecha_desde}&fecha_hasta=${locals.fecha_hasta}`%>>
+                    <a style="cursor: default" href=<%=`/pedidos/edit/${locals.data[i].pedido}/${locals.data[i].cliente}/${locals.data[i].ruta}?pedido=${locals.dataSearch.pedido}&cliente=${locals.dataSearch.cliente}&vendedor=${locals.dataSearch.vendedor}&estado=${locals.dataSearch.estado}&ruta=${locals.dataSearch.ruta}&fecha_desde=${locals.dataSearch.fecha_desde}&fecha_hasta=${locals.dataSearch.fecha_hasta}`%>>
                         <img class=" icon-edit " src="/img/icon/flecha-editar.svg " alt="Imagen para seleccionar un pedido ">
                     </a>
                     <!-- pedido: locals.pedido, cliente: locals.cliente, vendedor: locals.vendedor, estado: locals.estado, ruta: locals.ruta, fecha_desde: locals.fecha_desde, fecha_hasta: locals.fecha_hasta -->
@@ -36,7 +36,7 @@
 </div>
 <% if(locals.cant_ped > 10) { %>
     <div class="paginacion ">
-        <a class="anterior <% if(!locals.offset || locals.offset==0 ) { %>
+        <a class="anterior <% if(!locals.offset || locals.offset == 0 ) { %>
     <%= " fin-paginacion "  %>
         <% } %> " href="/pedidos/page/
             <%= `${locals.currentPage - 1}?next=0&cant_ped=${locals.cant_ped}&conditionQuery=${locals.conditionQuery}&offset=${locals.offset}&limit=${locals.limit}&currentPage=${locals.currentPage}&pages=${locals.pages}&pedido=${locals.pedido}&cliente=${locals.cliente}&vendedor=${locals.vendedor}&estado=${locals.estado}&ruta=${locals.ruta}&fecha_desde=${locals.fecha_desde}&fecha_hasta=${locals.fecha_hasta}` %> "> Anteriores

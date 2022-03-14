@@ -1,0 +1,45 @@
+<div class="all-pedidos">
+    <% if(locals.data) {  %>
+        <% for(let i = 0; i < locals.data.length; i++) {%>
+            <div class="one-pedido">
+                <div class="nro-pedido" id="pedido" style="cursor: default">
+                    <b><%= locals.data[i].pedido %></b>
+                </div>
+                <div id="cliente" style="cursor: default">
+                    <%= locals.data[i].cliente %>
+                </div>
+                <div id="cli_nom" style="cursor: default">
+                    <%= locals.data[i].cli_nom %>
+                </div>
+
+                <div id="estado" style="cursor: default">
+                    <%= locals.data[i].estado %>
+                </div>
+
+                <div id="fecha" style="cursor: default">
+                    <%= locals.data[i].fecha %>
+                </div>
+
+                <div>
+                    <a style="cursor: default" href=<%=`/remitos/edit/${locals.data[i].pedido}/${locals.data[i].cliente}?pedido=${locals.dataSearch.pedido}&cliente=${locals.dataSearch.cliente}&estado=${locals.dataSearch.estado}&fecha_desde=${locals.dataSearch.fecha_desde}&fecha_hasta=${locals.dataSearch.fecha_hasta}`%>>
+                        <img class=" icon-edit " src="/img/icon/flecha-editar.svg " alt="Imagen para seleccionar un pedido ">
+                    </a>
+                    <!-- pedido: locals.pedido, cliente: locals.cliente, estado: locals.estado, fecha_desde: locals.fecha_desde, fecha_hasta: locals.fecha_hasta -->
+                </div>
+            </div>
+            <% } %>
+                <% } %>
+</div>
+<% if(locals.cant_ped > 10) { %>
+    <div class="paginacion ">
+        <a class="anterior <% if(!locals.offset || locals.offset == 0 ) { %>
+    <%= " fin-paginacion "  %>
+        <% } %> " href="/remitos/page/
+            <%= `${locals.currentPage - 1}?next=0&cant_ped=${locals.cant_ped}&conditionQuery=${locals.conditionQuery}&offset=${locals.offset}&limit=${locals.limit}&currentPage=${locals.currentPage}&pages=${locals.pages}&pedido=${locals.pedido}&cliente=${locals.cliente}&estado=${locals.estado}&fecha_desde=${locals.fecha_desde}&fecha_hasta=${locals.fecha_hasta}` %> "> Anteriores
+</a>
+        <a class="siguiente <% if(locals.currentPage == locals.pages) { %> 
+        <%= " fin-paginacion "  %>                                                                                                                                                                                                               
+    <% } %>" href="/remitos/page/<%= `${locals.currentPage + 1}?next=1&cant_ped=${locals.cant_ped}&conditionQuery=${locals.conditionQuery}&offset=${locals.offset}&limit=${locals.limit}&currentPage=${locals.currentPage}&pages=${locals.pages}&pedido=${locals.dataSearch.pedido}&cliente=${locals.dataSearch.cliente}&estado=${locals.dataSearch.estado}&fecha_desde=${locals.dataSearch.fecha_desde}&fecha_hasta=${locals.dataSearch.fecha_hasta}` %> ">
+    Siguientes
+ </div>
+<% } %>

@@ -1,11 +1,12 @@
-<%- include('partials/head', {title: "Detalle de pedido"}) %>
+<%- include('partials/head', {title: "Detalle de remito"}) %>
     <!-- <script src="/js/scryptAux.js" defer></script> -->
-    <script src="/js/scryptDetallePedido.js" defer></script>
+    <script src="/js/scryptDetalleRemito.js" defer></script>
     </head>
 
     <body>
+        <!-- Datos Guardados -->
         <div hidden>
-            <input id="datos-pedido" type="text" value="<%= locals.pedido %>*<%= locals.cliente %>*<%= locals.vendedor %>*<%= locals.estado %>*<%= locals.ruta %>*<%= locals.fecha_desde %>*<%= locals.fecha_hasta %>*<%= locals.escaneado %>*<%= locals.nroCliente %>*<%= locals.nroPedido %>*<%= locals.rutaPedido %>">
+            <input id="datos-pedido" type="text" value="<%= locals.pedido %>*<%= locals.cliente %>*<%= locals.estado %>*<%= locals.fecha_desde %>*<%= locals.fecha_hasta %>*<%= locals.escaneado %>*<%= locals.nroCliente %>*<%= locals.nroPedido %>">
             <input id="max-secuencia" type="number" value="<%= locals.maxSecuencia %>" hidden>
         </div>
         <div class="div-container-msg-confirmacion">
@@ -21,6 +22,7 @@
                 </div>
             </div>
         </div>
+
         <div class="container-msg-warning hidden">
             <div class="div-msg-warning">
                 <div class="div-text-msg-warning">
@@ -33,19 +35,16 @@
             </div>
 
         </div>
-
         <div class="container-img-loading">
             <img class="img-loading" src="/img/icon/gif-save1.webp" alt="">
         </div>
-
-
         <% for( let i = 0; i < locals.dataProducts.length; i++) { %>
             <div class="div-products" hidden>
-                <%= locals.dataProducts[i].producto+"*"+locals.dataProducts[i].pro_nom+"*"+locals.dataProducts[i].precio %>
+                <%= locals.dataProducts[i].producto+"*"+locals.dataProducts[i].pro_nom %>
             </div>
             <% } %>
                 <div class="div-container">
-                    <%- include('partials/headerpedidossearch')  %>
+                    <%- include('partials/headerremitossearch')  %>
                         <div class="data-item">
                             <div class="pedidos-encabezado">
                                 <div class="titulo-encabezado">
@@ -76,12 +75,6 @@
                                     </select>
                                             <input form="form" id="estado_modificado" type="number" name="estado_modificado" hidden="true" value="0" />
                                         </h3>
-                                        <h3>Vendedor:
-                                            <%= locals.vendedorPedido %>
-                                        </h3>
-                                        <h3>Ruta:
-                                            <%= locals.rutaPedido %>
-                                        </h3>
                                         <h3 class="cant-items">Cantidad de Items:
                                             <%= locals.data.length %>
                                         </h3>
@@ -103,30 +96,28 @@
                                     </div>
                                 </div>
                                 <div class="encabezado-detalle-de-pedido">
-                                    <div class="encabezado-codigo">Codigo Producto</div>
-                                    <div class="encabezado-descripcion">Descripcion</div>
-                                    <div class="encabezado-precio">Precio</div>
-                                    <div class="encabezado-cantidad">Cantidad</div>
-                                    <div class="encabezado-operaciones"> Operaciones </div>
+                                    <div class="encabezado-codigo-remito">Codigo Producto</div>
+                                    <div class="encabezado-descripcion-remito">Descripcion</div>
+                                    <div class="encabezado-cantidad-remito">Cantidad</div>
+                                    <div class="encabezado-operaciones-remito"> Operaciones </div>
                                 </div>
-                                <form method="post" action="/pedidos/update/<%= locals.nroPedido %>/<%= locals.nroCliente%>/<%= locals.rutaPedido%>?escaneado=<%= locals.escaneado%>&fecha=<%= locals.fechaPedido%>&cli_nom=<%= locals.clientePedido.toString()%>&ruta=<%= locals.rutaPedido%>&vendedor=<%= locals.vendedorPedido%>"
-                                    id="form" class="form-detalle-pedido">
+
+                                <form method="post" action="/remitos/update/<%= locals.nroPedido %>/<%= locals.nroCliente%>?escaneado=<%= locals.escaneado%>&fecha=<%= locals.fechaPedido%>&cli_nom=<%= locals.clientePedido%>" id="form" class="form-detalle-pedido">
                                     <% for( let i = 0; i < locals.data.length; i++ ) { %>
                                         <div id="item-<%= (i + 1) %>" class=" div-one-item form-detalle-pedido__item ">
-                                            <input id="<%= (4*i + 1) %>" min="1" name="producto" type="number" required class=" input-event cod-prod style-cod-product" value="<%= locals.data[i].producto  %>">
-                                            <input id="<%= (4*i + 2) %>" autocomplete="off" name="pro_nom" type="text" required class="input-event description-prod style-description-prod " value="<%= locals.data[i].pro_nom  %>">
-                                            <input id="<%= (4*i + 3) %>" min="0" autocomplete="off" name="precio" type="number" required class=" input-event precio-prod style-precio-prod " step=".01" value="<%= locals.data[i].precio  %>">
-                                            <input id="<%= (4*i + 4) %>" name="cantidad" type="number" required class=" input-event cantidad-ingresada style-cantidad-ingresada" value="<%= (!locals.escaneado) ? locals.data[i].cantidad : locals.data[i].ingresada %>">
+                                            <input id="<%= (3*i + 1) %>" min="1" name="producto" type="number" required class=" input-event cod-prod style-cod-product-remito" value="<%= locals.data[i].producto  %>">
+                                            <input id="<%= (3*i + 2) %>" autocomplete="off" name="pro_nom" type="text" required class=" input-event description-prod style-description-prod-remito " value="<%= locals.data[i].pro_nom  %>">
+                                            <!-- <input id="<%= (3*i + 3) %>" name="cantidad" type="number" required class=" input-event cantidad-ingresada style-cantidad-ingresada-remito" value="<%= (locals.data[i].cantidad >= 0) ? locals.data[i].cantidad : locals.data[i].ingresada %>"> -->
+                                            <input id="<%= (3*i + 3) %>" name="cantidad" type="number" required class=" input-event cantidad-ingresada style-cantidad-ingresada-remito" value="<%= (!locals.escaneado) ? locals.data[i].cantidad : locals.data[i].ingresada %>">
+
                                             <div class=" icons-operations">
                                                 <img id="delete-<%= (i + 1) %>" title="Eliminar item" class="icon-operation icon-operation-delete" src="/img/icon/trash-can-solid.svg">
                                                 <!-- implementar un solo input para manejar los tres estados -->
-                                                <input id="modificado-<%= (i + 1) %>" type="number" name="item_modificado" hidden="true" value="0" />
+                                                <input id="modificado-<%= (i + 1) %>" type="number" name="item_modificado" hidden="true" value="<%= (!locals.escaneado) ? 1 : 0 %>" />
                                                 <input id="secuencia-<%= (i + 1) %>" type="number" name="item_secuencia" hidden="true" value="<%= locals.data[i].secuencia %>" />
                                             </div>
                                         </div>
                                         <% } %>
-
-                                            <!-- codigo de items en asasaasas.ejs -->
 
                                 </form>
                                 <div class="icon-save-and-cancel">

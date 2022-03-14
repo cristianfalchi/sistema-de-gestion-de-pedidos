@@ -288,15 +288,32 @@ body {
     text-align: center;
 }
 
+.encabezado-codigo-remito {
+    min-width: 150px;
+    max-width: 160px;
+}
+
+.encabezado-descripcion-remito {
+    min-width: 380px;
+}
+
+.encabezado-cantidad-remito {
+    margin-left: 20px;
+    min-width: 200px;
+}
+
+.encabezado-operaciones-remito {
+    margin-left: 80px;
+    min-width: 160px;
+}
+
 .encabezado-codigo {
     min-width: 150px;
     max-width: 160px;
-    flex-grow: 1;
 }
 
 .encabezado-descripcion {
     min-width: 380px;
-    /* flex-grow: 1; */
 }
 
 .encabezado-precio {
@@ -308,6 +325,7 @@ body {
 }
 
 .encabezado-operaciones {
+    margin-left: 30px;
     min-width: 160px;
 }
 
@@ -333,7 +351,62 @@ body {
 }
 
 .color-white {
-    background-color: white;
+    background-color: rgb(143, 223, 250);
+}
+
+.style-cod-product-remito {
+    padding-left: 3px;
+    flex-grow: 1;
+    max-width: 160px;
+    cursor: text;
+    border: 0;
+    background: inherit;
+    border-left: 1px solid black;
+    height: 30px;
+}
+
+.style-cod-product-remito:focus {
+    background-color: var(--color-transparent);
+    color: white;
+    outline: none;
+}
+
+.style-description-prod-remito {
+    padding-left: 3px;
+    flex-grow: 1;
+    min-width: 400px;
+    max-width: 450px;
+    cursor: text;
+    border: 0;
+    background: inherit;
+    border-left: 1px solid black;
+    height: 30px;
+}
+
+.style-description-prod-remito:focus {
+    background-color: var(--color-transparent);
+    color: white;
+    outline: none;
+}
+
+.style-cantidad-ingresada-remito {
+    font-size: 17px;
+    font-weight: bold;
+    text-align: right;
+    cursor: text;
+    min-width: 200px;
+    max-width: 220px;
+    border: 0;
+    border-left: 1px solid black;
+    background: inherit;
+    padding-right: 3px;
+    height: 30px;
+}
+
+.style-cantidad-ingresada-remito:focus {
+    background-color: var(--color-transparent);
+    color: white;
+    outline: none;
 }
 
 .style-cod-product {
@@ -352,6 +425,7 @@ body {
     padding-left: 3px;
     flex-grow: 1;
     min-width: 150px;
+    max-width: 170px;
     cursor: text;
     border: 0;
     background: inherit;
@@ -376,6 +450,7 @@ body {
     padding-left: 3px;
     flex-grow: 1;
     min-width: 400px;
+    max-width: 420px;
     cursor: text;
     border: 0;
     background: inherit;
@@ -396,6 +471,7 @@ body {
     cursor: text;
     flex-grow: 1;
     min-width: 170px;
+    max-width: 190px;
     border: 0;
     border-left: 1px solid black;
     background: inherit;
@@ -520,12 +596,23 @@ ul {
     width: 100px !important;
 }
 
+.btn-menu li {
+    display: flex;
+}
+
+.btn-menu-a {
+    padding: 0 !important;
+    margin: auto;
+    height: 30px;
+    padding-top: 4px !important;
+}
+
 #menu li>a {
     background-color: grey;
     color: white;
     padding: 10px;
     display: block;
-    width: 175px;
+    width: 222px;
     text-decoration: none;
 }
 
@@ -543,7 +630,7 @@ ul {
 #menu>li>ul {
     position: absolute;
     display: none;
-    width: 200px;
+    width: 250px;
     right: 5px;
 }
 
@@ -582,56 +669,50 @@ ul {
     padding-left: 7px;
 }
 
-.container-msg-vacio {
-    display: flex;
+
+/* para mensajes warning */
+
+.container-msg-warning {
     margin: auto;
-    align-items: center;
+    display: flex;
     position: absolute;
     left: 300px;
     z-index: 101;
     height: 100vh;
     width: 80%;
-    display: none;
+    text-align: center;
+    background-color: transparent;
 }
 
-.msg-campo-vacio {
-    background-color: rgb(233, 217, 197);
-    height: 100px;
-    width: 350px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+.div-msg-warning {
     margin: auto;
+    background-color: rgb(233, 217, 197);
+    height: 120px;
+    width: 350px;
     border-radius: 7px;
     padding-left: 10px;
 }
 
-.msg-campo-vacio a {
-    text-decoration: none;
-    align-self: flex-start;
-    font-size: 20px;
-    color: rgb(138, 120, 98);
-    font-weight: bold;
-    margin-bottom: 60px;
-    padding-right: 10px;
-    padding-top: 5px;
+.div-text-msg-warning {
+    display: flex;
+    align-items: center;
 }
 
-.msg-campo-vacio a:hover {
-    color: rgb(85, 74, 61)
-}
-
-.msg-campo-vacio p {
+.div-text-msg-warning p {
+    margin-left: 15px;
     margin-top: 15px;
 }
 
-.msg-campo-vacio img {
+.div-text-msg-warning img {
     width: 40px;
     margin-left: 5px;
+}
+
+.btn-aceptar-warning {
+    background-color: rgb(185, 162, 133);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 
@@ -701,7 +782,7 @@ ul {
 }
 
 .background-color-delete {
-    background-color: lightblue;
+    background-color: rgb(111, 250, 111);
 }
 
 

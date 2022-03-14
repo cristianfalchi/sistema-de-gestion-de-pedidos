@@ -1,27 +1,23 @@
-<%- include('partials/head', {title: "Pedidos Remotos"}) %>
+<%- include('partials/head', {title: "Remitos Remotos"}) %>
     </head>
 
     <body>
         <div class="div-container">
-            <%- include('partials/headerpedidossearch')  %>
+            <%- include('partials/headerremitossearch')  %>
 
                 <div class="data-item">
                     <div class="pedidos-encabezado">
                         <div class="titulo-encabezado">
-                            <h2>PEDIDOS REMOTOS</h2>
+                            <h2>REMITOS REMOTOS</h2>
                             <h3>Cantidad de pedidos: <span><%= (locals.cant_ped) ? locals.cant_ped : 0 %> </span> </h3>
                         </div>
                         <div class="pedidos-encabezado__title">
                             <div>Pedido</div>
-                            <div>Cliente</div>
-                            <div>Nombre del Cliente</div>
-                            <div>Vendedor</div>
+                            <div>Sucursal</div>
+                            <div>Nombre</div>
                             <div>Estado</div>
-                            <div>Ruta</div>
                             <div>Fecha</div>
-                            <div>
-                            </div>
-
+                            <div></div>
                         </div>
                         <div class="alert <%= (locals.typeMsg) ? locals.typeMsg : 'hidden' %> " role="alert">
                             <%= locals.message %>

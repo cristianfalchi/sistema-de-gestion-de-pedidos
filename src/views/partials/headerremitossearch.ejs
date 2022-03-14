@@ -1,0 +1,43 @@
+<div class="menu-item">
+    <a href="/">
+        <img src="/img/logo_maxico.png" alt="imagen del logo de maxico">
+    </a>
+
+    <form class="form-search" action="/remitos/page?offset=0&limit=10" method="post">
+        <h2>Buscar por:</h2>
+        <div>
+            <label>Pedido</label>
+            <input class="clean" type="number" name="pedido" id="pedido" value="<% if(locals.dataSearch) {%><%=locals.dataSearch.pedido%><% } %>">
+        </div>
+        <div>
+            <label>Sucursal</label>
+            <input class="clean" type="number" name="cliente" id="cliente" value="<% if(locals.dataSearch) {%><%=locals.dataSearch.cliente%><% } %>">
+        </div>
+
+        <div>
+            <label>Estado</label>
+
+            <select class="clean" name="estado" id="estado">
+                <option value="default" <% if(!locals.dataSearch) {%> <%= "selected"  %><% } %>></option>
+                <option value="G" <% if(locals.dataSearch && locals.dataSearch.estado == 'G') {%> <%= "selected"  %><% } %> >G - Generado</option>
+                <option value="X" <% if(locals.dataSearch && locals.dataSearch.estado == 'X') {%> <%= "selected"  %><% } %> >X - Anulado</option>
+                <option value="I" <% if(locals.dataSearch && locals.dataSearch.estado == 'I') {%> <%= "selected"  %><% } %> >I - Impreso</option>
+                <option value="A" <% if(locals.dataSearch && locals.dataSearch.estado == 'A') {%> <%= "selected"  %><% } %> >A - Pendiente</option>
+            </select>
+        </div>
+        <div>
+            <label>Fecha desde</label>
+            <input class="clean" type="date" name="fecha_desde" id="fecha_desde" value="<% if(locals.dataSearch) {%><%= locals.dataSearch.fecha_desde %><% } %>">
+        </div>
+        <div>
+            <label>Fecha hasta</label>
+            <input class="clean" type="date" name="fecha_hasta" id="fecha_hasta" value="<% if(locals.dataSearch) {%><%= locals.dataSearch.fecha_hasta %><% } %>">
+
+        </div>
+        <button class="btn-submit" type="submit">Buscar</button>
+        <div class="img-clean">
+            <img src="/img/icon/icon-clean.png" alt="icono de limpieza de formulario">
+        </div>
+
+    </form>
+</div>

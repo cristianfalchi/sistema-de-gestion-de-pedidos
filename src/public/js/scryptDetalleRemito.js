@@ -13,42 +13,34 @@ if (!document.querySelector('.alert-msg-other').classList.contains('hidden')) {
 
 let maxSecuencia = document.getElementById('max-secuencia').value;
 
-
 // Obtengo todos los productos cargados desde el inicio
 const allDivItems = document.querySelectorAll('.div-one-item');
 
 // Cantidad de items en el pedido actualmente
 let cantidadOfItems = allDivItems.length;
 
+
 // obtengo los datos del formulario de busqueda de pedidos
-// pedido, cliente, vendedor, estado, ruta, fecha_desde, fecha_hasta, escaneado, nroCliente, nroPedido 
-// ['24090', '9997', '025', 'G', '01', '2022-03-17, '2022-03-28', 'false', '7442', '24090'] ejemplo
+// pedido, cliente,estado,fecha_desde, fecha_hasta, escaneado, nroCliente, nroPedido 
+// ['24090', '9997', 'G', '2022-03-17, '2022-03-28', 'false', '7442', '24090'] ejemplo
 const datosPedido = document.getElementById('datos-pedido').value.trim().split("*");
-// const pedido = document.getElementById('pedido').value;
 
 // -- Formulariod de busqueda --
 const pedido = datosPedido[0];
 const cliente = datosPedido[1];
-const vendedor = datosPedido[2];
-const estado = datosPedido[3];
-const ruta = datosPedido[4];
-const fecha_desde = datosPedido[5];
-const fecha_hasta = datosPedido[6];
+const estado = datosPedido[2];
+const fecha_desde = datosPedido[3];
+const fecha_hasta = datosPedido[4];
+
 
 // -- Datos del pedido
-const escaneado = datosPedido[7];
-const nroCliente = datosPedido[8];
-const nroPedido = datosPedido[9];
-const nroRuta = datosPedido[10];
+const escaneado = datosPedido[5];
+const nroCliente = datosPedido[6];
+const nroPedido = datosPedido[7];
 
 // Guardo el estado inicial del pedido
 const select = document.querySelector('.select-estado');
 const selectedIndex = select.selectedIndex;
-
-// Guardo el numero de cliente y el numero de pedido
-// const nroPedido = document.getElementById('nro-pedido').innerHTML.trim();
-// const nroCliente = document.getElementById('nro-cliente').innerHTML.trim();
-
 
 // marcas que me indica cuando quiero realizar una operacion sobre el pedido
 let envioFormulario = 0;
@@ -57,7 +49,8 @@ let agregarItem = 0;
 let eliminarPedido = 0;
 let cancelarPedido = 0;
 
-// Guardo el input que me disparo un cartel de advertencia
+
+// Para ignorar un producto que no este en la base de datos
 let elementCodProduct = null;
 
 // Guardo el item que se va a eliminar
@@ -73,9 +66,7 @@ const divProducts = document.querySelectorAll('.div-products');
 
 // obtengo el formulario
 const formularioItems = document.getElementById('form');
-
 // ---- Variables y constantes auxiliares (FINAL)-----
-
 
 // Funcion que setea la propiedad value del producto a eliminar si nuevo o ya se encontraba en la base de datos
 function setValue(divitem) {
@@ -86,7 +77,6 @@ function setValue(divitem) {
         }
     }
 }
-
 
 // Se selecciona el texto de los inputs cuando se obtiene el FOCO
 for (let i = 0; i < inputsFormAll.length; i++) {
@@ -113,7 +103,7 @@ function ifHaveFocus(element) {
     element.select();
 }
 
-// Funcion que maneja el evento blur de todos los inputs que agrego al DOM
+// Funcion que maneja el evento blur de los nuevos inputs que agrego al DOM
 function ifLostFocus(element) {
 
     if (element.value == '') {
@@ -126,11 +116,9 @@ function ifLostFocus(element) {
         if (element.classList.contains('cod-prod')) {
             // Obtengo el input descripcion de producto
             const inputDescripcion = document.getElementById(Number(element.id) + 1);
-            const inputPrecio = document.getElementById(Number(element.id) + 2);
             let position = binarySearch(element.value, divProducts);
             if (position !== -1) {
                 inputDescripcion.value = divProducts[position].innerText.split('*')[1].trim();
-                inputPrecio.value = divProducts[position].innerText.split('*')[2].trim();
             } else {
 
                 elementCodProduct = document.getElementById(Number(element.id) + 1);
@@ -143,7 +131,6 @@ function ifLostFocus(element) {
 
     }
 }
-
 
 // Funcion que maneja el evento de presionar ENTER en un input del formulario
 function pressEnterInput(event) {
@@ -162,9 +149,11 @@ function pressDownInput(event) {
     if (event.keyCode == 40) {
         const idDivItem = event.target.parentNode.id.slice(5);
         if (Number(idDivItem) !== cantidadOfItems) {
-            document.getElementById(Number(event.target.id) + 4).focus()
+            document.getElementById(Number(event.target.id) + 3).focus()
         }
+
     }
+
 }
 
 // Funcion que maneja el evento de presionar UP en un input del formulario
@@ -173,7 +162,7 @@ function pressUpInput(event) {
     if (event.keyCode == 38) {
         const idDivItem = event.target.parentNode.id.slice(5);
         if (Number(idDivItem) !== 1) {
-            document.getElementById(Number(event.target.id) - 4).focus()
+            document.getElementById(Number(event.target.id) - 3).focus()
         }
 
     }
@@ -191,6 +180,7 @@ for (let i = 0; i < inputsFormAll.length; i++) {
 // registro los productos que el usuario ha modificado
 document.addEventListener('change', (event) => {
     const inputElement = event.target.parentNode.id.slice(5);
+    console.log(inputElement);
     if (event.target.matches('.input-event') && document.getElementById(`modificado-${inputElement}`).value == 0) {
         document.getElementById(`modificado-${inputElement}`).value = "1";
         document.querySelector('.alert-msg-save').style.display = 'flex';
@@ -244,11 +234,11 @@ document.addEventListener('keydown', (event) => {
     }
 })
 
-
 // Verifico si el usuario cambio el estado del pedido
 select.addEventListener('change', function() {
     if (this.selectedIndex !== selectedIndex) {
         document.getElementById('estado_modificado').value = 1;
+
     } else {
         document.getElementById('estado_modificado').value = 0;
     }
@@ -275,7 +265,6 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
     }
 
     if (clickedElement.matches('.btn-aceptar')) {
-
         if (envioFormulario == 1) { // Cuando envio los datos al servidor
             // Verifica que no haya campo vacio al enviar el formulario
             let campoVacioAlEnviar = 0;
@@ -308,9 +297,9 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
             // Extraigo el id del divItem eliminado
 
             if (setValue(divItemEliminado)) {
-                divItemEliminado.children[4].children[1].setAttribute("value", 3); // lo elimino de la base de datos en el backend
+                divItemEliminado.children[3].children[1].setAttribute("value", 3); // lo elimino de la base de datos en el backend
             } else {
-                divItemEliminado.children[4].children[1].setAttribute("value", 0); // no hago nada en el backend con este elemento
+                divItemEliminado.children[3].children[1].setAttribute("value", 0); // no hago nada en el backend con este elemento
             }
             divItemEliminado.setAttribute("id", "");
             divItemEliminado.children[0].setAttribute("id", "");
@@ -319,11 +308,10 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
             divItemEliminado.children[1].classList.remove('input-event');
             divItemEliminado.children[2].setAttribute("id", "");
             divItemEliminado.children[2].classList.remove('input-event');
-            divItemEliminado.children[3].setAttribute("id", "");
-            divItemEliminado.children[3].classList.remove('input-event');
-            divItemEliminado.children[4].children[0].setAttribute("id", "");
-            divItemEliminado.children[4].children[1].setAttribute("id", "");
-            divItemEliminado.children[4].children[2].setAttribute("id", "");
+            divItemEliminado.children[3].children[0].setAttribute("id", "");
+            divItemEliminado.children[3].children[1].setAttribute("id", "");
+            divItemEliminado.children[3].children[2].setAttribute("id", "");
+            console.log(divItemEliminado);
 
             // Reorganizar los id de los Productos
 
@@ -331,13 +319,12 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
             // console.log(allItems);
             for (let i = idDivEliminado - 1; i < allItems.length; i++) {
                 allItems[i].setAttribute("id", `item-${i + 1}`);
-                allItems[i].children[0].setAttribute("id", 4 * i + 1); // 4*i + 1
-                allItems[i].children[1].setAttribute("id", 4 * i + 2);
-                allItems[i].children[2].setAttribute("id", 4 * i + 3);
-                allItems[i].children[3].setAttribute("id", 4 * i + 4);
-                allItems[i].children[4].children[0].setAttribute("id", `delete-${i + 1}`);
-                allItems[i].children[4].children[1].setAttribute("id", `modificado-${i + 1}`);
-                allItems[i].children[4].children[2].setAttribute("id", `secuencia-${i + 1}`);
+                allItems[i].children[0].setAttribute("id", 3 * i + 1); // 4*i + 1
+                allItems[i].children[1].setAttribute("id", 3 * i + 2);
+                allItems[i].children[2].setAttribute("id", 3 * i + 3);
+                allItems[i].children[3].children[0].setAttribute("id", `delete-${i + 1}`);
+                allItems[i].children[3].children[1].setAttribute("id", `modificado-${i + 1}`);
+                allItems[i].children[3].children[2].setAttribute("id", `secuencia-${i + 1}`);
                 if (i % 2 == 0) {
                     allItems[i].classList.add('color-white');
                 } else {
@@ -347,19 +334,16 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
 
             cantidadOfItems--;
             document.querySelector(".cant-items").innerHTML = 'Cantidad de Items: ' + cantidadOfItems;
-            inputsTotal -= 4;
+            inputsTotal -= 3;
             eliminarItem = 0;
             document.querySelector('.alert-msg-save').style.display = 'flex';
         }
-
         if (agregarItem == 1) { // Si agrego un item al pedido
             // Creando elementos
-
 
             const divItem = document.createElement('div');
             const inputProducto = document.createElement('input');
             const inputDescripcion = document.createElement('input');
-            const inputPrecio = document.createElement('input');
             const inputCantidad = document.createElement('input');
             const divIcons = document.createElement('div');
             const imgDelete = document.createElement('img');
@@ -377,7 +361,7 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
             inputProducto.setAttribute("name", "producto");
             inputProducto.setAttribute("type", "number");
             inputProducto.setAttribute("required", "true");
-            inputProducto.setAttribute("class", "cod-prod style-cod-product input-event");
+            inputProducto.setAttribute("class", "input-event cod-prod style-cod-product-remito");
             inputProducto.setAttribute("onblur", "ifLostFocus(this)");
             inputProducto.setAttribute("onfocus", "ifHaveFocus(this)");
 
@@ -387,27 +371,16 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
             inputDescripcion.setAttribute("type", "text");
             inputDescripcion.setAttribute("required", "true");
             inputDescripcion.setAttribute("autocomplete", "off");
-            inputDescripcion.setAttribute("class", "description-prod style-description-prod input-event");
+            inputDescripcion.setAttribute("class", "input-event description-prod style-description-prod-remito");
             inputDescripcion.setAttribute("onblur", "ifLostFocus(this)");
             inputDescripcion.setAttribute("onfocus", "ifHaveFocus(this)");
 
 
-            inputPrecio.setAttribute("id", inputsTotal + 3);
-            inputPrecio.setAttribute("name", "precio");
-            inputPrecio.setAttribute("type", "number");
-            inputPrecio.setAttribute("required", "true");
-            inputPrecio.setAttribute("min", "0");
-            inputPrecio.setAttribute("step", "0.01");
-            inputPrecio.setAttribute("class", "input-event precio-prod style-precio-prod");
-            inputPrecio.setAttribute("onblur", "ifLostFocus(this)");
-            inputPrecio.setAttribute("onfocus", "ifHaveFocus(this)");
-
-
-            inputCantidad.setAttribute("id", inputsTotal + 4);
+            inputCantidad.setAttribute("id", inputsTotal + 3);
             inputCantidad.setAttribute("name", "cantidad");
             inputCantidad.setAttribute("type", "number");
             inputCantidad.setAttribute("required", "true");
-            inputCantidad.setAttribute("class", "cantidad-ingresada style-cantidad-ingresada input-event");
+            inputCantidad.setAttribute("class", "input-event cantidad-ingresada style-cantidad-ingresada-remito");
             inputCantidad.setAttribute("onblur", "ifLostFocus(this)");
             inputCantidad.setAttribute("onfocus", "ifHaveFocus(this)");
 
@@ -425,13 +398,11 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
             inputModificado.setAttribute("hidden", "true");
             inputModificado.setAttribute("value", "2");
 
-
             inputSecuencia.setAttribute("id", `secuencia-${cantidadOfItems + 1}`);
             inputSecuencia.setAttribute("name", "item_secuencia");
             inputSecuencia.setAttribute("type", "number");
             inputSecuencia.setAttribute("hidden", "true");
             inputSecuencia.setAttribute("value", `${Number(maxSecuencia) + 1}`);
-
 
 
             // componemos el item completo
@@ -441,34 +412,30 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
 
             divItem.append(inputProducto);
             divItem.append(inputDescripcion);
-            divItem.append(inputPrecio);
             divItem.append(inputCantidad);
             divItem.append(divIcons);
 
             formularioItems.append(divItem);
 
-            // pongo el foco en el input de codigo de producto
-            inputProducto.focus();
-            cantidadOfItems++;
-            maxSecuencia++;
-            inputsTotal += 4;
+
+            inputProducto.focus(); // pongo el foco en el input de codigo de producto
+            cantidadOfItems++; // Seteo variable porque ahora hay un items mas
+            maxSecuencia++; // para setear el nuevo producto con un numero de secuencia
+            inputsTotal += 3; // Ahora hay tres input mas. Codigo de producto, descripcion y cantidad
             agregarItem = 0;
             document.querySelector(".cant-items").innerHTML = 'Cantidad de Items: ' + cantidadOfItems;
             document.querySelector('.alert-msg-save').style.display = 'flex';
-
         }
         if (eliminarPedido == 1) {
-            window.location.assign(`/pedidos/delete/${nroPedido}/${nroCliente}/${nroRuta}`);
+            window.location.assign(`/remitos/delete/${nroPedido}/${nroCliente}`);
             eliminarPedido = 0;
             document.querySelector('.img-loading').src = "/img/icon/deleting-gif.gif";
             document.querySelector('.container-img-loading').style.display = "block";
         }
         if (cancelarPedido == 1) {
             cancelarPedido = 0;
-            window.location.assign('/pedidos');
+            window.location.assign('/remitos');
         }
-
-        // oculto los carteles
         document.querySelector('.div-container-msg-confirmacion').style.setProperty('display', 'none');
 
     }
@@ -503,6 +470,7 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
         }
 
         document.querySelector('.div-container-msg-confirmacion').style.setProperty('display', 'none');
+
     }
 
     if (clickedElement.matches('.icon-operation-delete')) { // OK

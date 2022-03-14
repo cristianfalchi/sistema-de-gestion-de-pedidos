@@ -29,7 +29,7 @@ app.use(morgan('dev'));
 // Para dar servicio de archivos estaticos
 app.use(express.static(__dirname + '/public'));
 // Analiza las solicitudes entrantes con cargas útiles 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ limit: '1mb', extended: true, parameterLimit: 1000000 }));
 // Analiza las solicitudes entrantes con cargas JSON
 app.use(express.json());
 // app.use(session({

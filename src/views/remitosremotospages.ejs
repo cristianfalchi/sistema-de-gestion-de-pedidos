@@ -1,13 +1,13 @@
-<%- include('partials/head', {title: "Pedidos Remotos"}) %>
+<%- include('partials/head', {title: "Remitos Remotos"}) %>
     </head>
 
     <body>
         <div class="div-container">
-            <%- include('partials/headerpedidossearch')  %>
+            <%- include('partials/headerremitossearch')  %>
                 <div class="data-item">
                     <div class="pedidos-encabezado">
                         <div class="titulo-encabezado">
-                            <h2>PEDIDOS REMOTOS</h2>
+                            <h2>REMITOS REMOTOS</h2>
                             <h3>Cantidad de pedidos:
                                 <%= (locals.cant_ped) ? locals.cant_ped : 0 %>
                             </h3>
@@ -16,9 +16,7 @@
                             <div>Pedido</div>
                             <div>Cliente</div>
                             <div>Nombre del Cliente</div>
-                            <div>Vendedor</div>
                             <div>Estado</div>
-                            <div>Ruta</div>
                             <div>Fecha</div>
                             <div></div>
                         </div>
@@ -28,12 +26,11 @@
                             </div>
                             <% }else{%>
 
-                                <%- include('partials/pedidos', {data: locals.data, cant_ped: locals.cant_ped, conditionQuery: locals.conditionQuery, offset: locals.offset, limit: locals.limit, currentPage: locals.currentPage, pages: locals.pages, pedido: locals.pedido, cliente: locals.cliente, vendedor: locals.vendedor, estado: locals.estado, ruta: locals.ruta, fecha_desde: locals.fecha_desde, fecha_hasta: locals.fecha_hasta })%>
+                                <%- include('partials/remitospedidos', {data: locals.data, cant_ped: locals.cant_ped, conditionQuery: locals.conditionQuery, offset: locals.offset, limit: locals.limit, currentPage: locals.currentPage, pages: locals.pages, dataSearch: locals.dataSearch })%>
                                     <% } %>
                     </div>
                 </div>
         </div>
-
     </body>
 
     </html>
