@@ -35,7 +35,7 @@
         <a class="anterior <% if(!locals.offset || locals.offset == 0 ) { %>
     <%= " fin-paginacion "  %>
         <% } %> " href="/remitos/page/
-            <%= `${locals.currentPage - 1}?next=0&cant_ped=${locals.cant_ped}&conditionQuery=${locals.conditionQuery}&offset=${locals.offset}&limit=${locals.limit}&currentPage=${locals.currentPage}&pages=${locals.pages}&pedido=${locals.pedido}&cliente=${locals.cliente}&estado=${locals.estado}&fecha_desde=${locals.fecha_desde}&fecha_hasta=${locals.fecha_hasta}` %> "> Anteriores
+            <%= `${locals.currentPage - 1}?next=0&cant_ped=${locals.cant_ped}&conditionQuery=${locals.conditionQuery}&offset=${locals.offset}&limit=${locals.limit}&currentPage=${locals.currentPage}&pages=${locals.pages}&pedido=${locals.dataSearch.pedido}&cliente=${locals.dataSearch.cliente}&estado=${locals.dataSearch.estado}&fecha_desde=${locals.dataSearch.fecha_desde}&fecha_hasta=${locals.dataSearch.fecha_hasta}` %> "> Anteriores
 </a>
         <a class="siguiente <% if(locals.currentPage == locals.pages) { %> 
         <%= " fin-paginacion "  %>                                                                                                                                                                                                               
