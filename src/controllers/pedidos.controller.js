@@ -22,7 +22,7 @@ const arrayQuery = ["select pedido, cliente, cli_nom, vendedor, estado, ruta, fe
 // select  count(pedido) as cant_ped from (select pedido from pedidosremotos where estado = 'X' group by pedido, cliente ) as pedidos
 const arrayQueryOneOrder = ["select  count(pedido) as cant_ped from (select pedido from pedidosremotos where", , " group by pedido, cliente ) as pedidos"];
 // devuelve si el pedido esta escaneado o no
-const arrayQueryEscanOrNoScan = ["select sum(ingresada) as sum_ingresada from pedidosremotos where ", ];
+const arrayQueryEscanOrNoScan = ["select sum(ingresada) as sum_ingresada from pedidosremotos where ",];
 
 //asdasdasdasd
 
@@ -31,7 +31,7 @@ const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
 
 // funcion que renderiza la vista luego de la busqueda que realiza el usuario
-const renderPagesOrMessage = async(fields, response, conditionQuery, typeMsg, message, offset = 0, limit = 10) => {
+const renderPagesOrMessage = async (fields, response, conditionQuery, typeMsg, message, offset = 0, limit = 10) => {
 
     // conexion a mysql2
     const connection = await connect();
@@ -61,7 +61,7 @@ const renderPagesOrMessage = async(fields, response, conditionQuery, typeMsg, me
 
 module.exports = {
 
-    homePedidos: async(req, res) => {
+    homePedidos: async (req, res) => {
         Pedido.removeAttribute('id');
         const dataSearch = {}
         let message = 'Puede comenzar con la busqueda de pedidos!';
@@ -69,11 +69,10 @@ module.exports = {
     },
 
     // Me retorna los items de un pedido
-    getOnePedido: async(req, res) => {
+    getOnePedido: async (req, res) => {
         // conexion a mysql2
         const connection = await connect();
         Pedido.removeAttribute('id');
-        Producto.removeAttribute('id');
         const { nroPedido, nroCliente, nroRuta } = req.params;
         const dataSearch = req.query;
         let maxSecuencia = 0; // Me indica la secuencia maxima del producto perteneciente al pedido
@@ -82,8 +81,6 @@ module.exports = {
         let itemsPedidoDB; // producto, descripcion, cantidad EN CRUDO
         const itemsPedidoView = []; // producto, descripcion, cantidad LISTO PARA LA VISTA|
         let dataPedido;
-        let productosDB;
-        const dataProducts = [];
 
         // Averiguro si el pedido esta escaneado o no lo esta
         arrayQueryEscanOrNoScan.splice(1, 1, `pedido = ${nroPedido} and cliente = ${nroCliente} and ruta = ${nroRuta}`);
@@ -109,21 +106,15 @@ module.exports = {
 
         itemsPedidoDB.forEach(item => itemsPedidoView.push(item.dataValues))
 
-        // Obtengo todos los productos. {producto , pro_nom, precio}
-        productosDB = await Producto.findAll();
-        for (let i = 0; i < productosDB.length; i++) {
-            dataProducts.push(productosDB[i].dataValues);
-
-        }
         connection.close();
-        res.render('detallepedido', { data: itemsPedidoView, dataProducts: dataProducts, nroPedido: nroPedido, nroCliente: nroCliente, escaneado: escaneado, estadoPedido: dataPedido.dataValues.estado, fechaPedido: dataPedido.dataValues.fecha, clientePedido: dataPedido.dataValues.cli_nom, vendedorPedido: dataPedido.dataValues.vendedor, rutaPedido: nroRuta, maxSecuencia, /* datos req.query => */ dataSearch })
+        res.render('detallepedido', { data: itemsPedidoView, nroPedido: nroPedido, nroCliente: nroCliente, escaneado: escaneado, estadoPedido: dataPedido.dataValues.estado, fechaPedido: dataPedido.dataValues.fecha, clientePedido: dataPedido.dataValues.cli_nom, vendedorPedido: dataPedido.dataValues.vendedor, rutaPedido: nroRuta, maxSecuencia, /* datos req.query => */ dataSearch })
 
         // caso si la consulta a la base de datos falla
         // res.render('pedidosremotossearch', { typeMsg: typeMessage.info, message: message })
     },
 
     // Metodo que trae todos los pedidos
-    getPedidos: async(req, res) => {
+    getPedidos: async (req, res) => {
 
         const { pedido, cliente, vendedor, estado, ruta, fecha_desde, fecha_hasta } = req.query;
         let message = "";
@@ -305,7 +296,7 @@ module.exports = {
         }
 
     },
-    nextOrBeforePage: async(req, res) => {
+    nextOrBeforePage: async (req, res) => {
         let { next, cant_ped, offset, limit, currentPage, pages, conditionQuery } = req.query;
         const connection = await connect();
         if (!next || next == 1) {
@@ -325,7 +316,7 @@ module.exports = {
 
     },
 
-    updatePedido: async(req, res) => {
+    updatePedido: async (req, res) => {
 
         // conexion a mysql2
         const connection = await connect();
@@ -419,7 +410,7 @@ module.exports = {
         res.render('pedidosremotossearch', { typeMsg: typeMessage.info, message: message });
     },
 
-    deletePedido: async(req, res) => {
+    deletePedido: async (req, res) => {
 
         Pedido.removeAttribute('id');
 

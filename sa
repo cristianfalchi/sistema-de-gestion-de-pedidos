@@ -1,0 +1,60 @@
+[33mcommit f3d1a7845c46e604bda05f09ab22258295a92b93[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Cristian <80613753+cristianfalchi@users.noreply.github.com>
+Date:   Tue Mar 22 14:43:27 2022 -0300
+
+    Update README.md
+
+[33mcommit b185e24582ad1bda8939e3f043f1d35db9c8403a[m
+Author: Cristian <80613753+cristianfalchi@users.noreply.github.com>
+Date:   Tue Mar 22 14:41:01 2022 -0300
+
+    Update README.md
+
+[33mcommit f7611d68714cc2b77b942abb40ed8ec313473879[m
+Author: Cristian <80613753+cristianfalchi@users.noreply.github.com>
+Date:   Tue Mar 22 14:39:32 2022 -0300
+
+    Update README.md
+
+[33mcommit c83ec77d240fb038d49c6317497bb07402272049[m
+Merge: 0d86b54 be0545d
+Author: CristianGF <cristianstafe@gmail.com>
+Date:   Tue Mar 22 14:33:50 2022 -0300
+
+    Merge https://github.com/cristianfalchi/sistema-de-gestion-de-pedidos
+
+[33mcommit 0d86b54393286d78076e86f08c6132380613f9a0[m
+Author: CristianGF <cristianstafe@gmail.com>
+Date:   Tue Mar 22 14:25:28 2022 -0300
+
+    sistema de gestion de pedidos version 1.0.1 - correcion historial formulario
+
+[33mcommit be0545da56ccdbbba707e33e7c1642592c97a85b[m
+Author: Cristian <80613753+cristianfalchi@users.noreply.github.com>
+Date:   Tue Mar 22 14:23:56 2022 -0300
+
+    Create README.md
+
+[33mcommit 3eedd816d2487f6ce7101435a6e483bf41601560[m
+Author: CristianGF <cristianstafe@gmail.com>
+Date:   Mon Mar 14 22:14:30 2022 -0300
+
+    sistema de gestion de pedidos version 1.0.1 - agregado de archivo .env
+
+[33mcommit 742c4fd76efc936f84df643ddcd1820517de34f0[m
+Author: CristianGF <cristianstafe@gmail.com>
+Date:   Mon Mar 14 16:36:50 2022 -0300
+
+    sistema de gestion de pedidos version 1.0.1
+
+[33mcommit 0a0fce50e48473a07996a24f081af01888ac8a44[m[33m ([m[1;31mheroku/master[m[33m)[m
+Author: CristianGF <cristianstafe@gmail.com>
+Date:   Sat Mar 5 15:28:00 2022 -0300
+
+    sistema de gestion de pedidos version 1.0.0
+
+[33mcommit 84c4e333b56ad9ef4cccc2dc8b6eebc75aff381b[m
+Author: CristianGF <cristianstafe@gmail.com>
+Date:   Sat Mar 5 14:22:34 2022 -0300
+
+    start: sistema de gestion de pedidos version 1.0.0

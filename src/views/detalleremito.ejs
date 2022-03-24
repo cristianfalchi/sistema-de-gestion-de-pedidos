@@ -38,12 +38,7 @@
         <div class="container-img-loading">
             <img class="img-loading" src="/img/icon/gif-save1.webp" alt="">
         </div>
-        <% for( let i = 0; i < locals.dataProducts.length; i++) { %>
-            <div class="div-products" hidden>
-                <%= locals.dataProducts[i].producto+"*"+locals.dataProducts[i].pro_nom %>
-            </div>
-            <% } %>
-                <div class="div-container">
+                 <div class="div-container">
                     <%- include('partials/headerremitossearch')  %>
                         <div class="data-item">
                             <div class="pedidos-encabezado">

@@ -53,6 +53,7 @@ app.get('/', (req, res) => {
 
 app.use('/remitos', require('./routes/remitosexpress'));
 app.use('/pedidos', require('./routes/pedidosremotos'));
+app.use('/productos', require('./routes/productos'));
 
 
 // Server starting

@@ -100,10 +100,9 @@ for (let i = 0; i < inputsFormAll.length; i++) {
 for (let i = 0; i < cantidadOfItems; i++) {
 
     if (i % 2 == 0) {
-        document.getElementById(`item-${i + 1 }`).classList.add('color-white');
+        document.getElementById(`item-${i + 1}`).classList.add('color-white');
         // divItemEliminado
     }
-
 }
 
 // FUNCIONES
@@ -114,7 +113,7 @@ function ifHaveFocus(element) {
 }
 
 // Funcion que maneja el evento blur de todos los inputs que agrego al DOM
-function ifLostFocus(element) {
+async function ifLostFocus(element) {
 
     if (element.value == '') {
         elementCodProduct = element;
@@ -124,21 +123,19 @@ function ifLostFocus(element) {
 
     } else {
         if (element.classList.contains('cod-prod')) {
-            // Obtengo el input descripcion de producto
             const inputDescripcion = document.getElementById(Number(element.id) + 1);
             const inputPrecio = document.getElementById(Number(element.id) + 2);
-            let position = binarySearch(element.value, divProducts);
-            if (position !== -1) {
-                inputDescripcion.value = divProducts[position].innerText.split('*')[1].trim();
-                inputPrecio.value = divProducts[position].innerText.split('*')[2].trim();
+            const res = await fetch(`/productos/${element.value}`)
+            const resJson = await res.json();
+            if (resJson !== []) {
+                inputDescripcion.value = resJson.pro_nom;
+                inputPrecio.value = resJson.precio;
             } else {
-
                 elementCodProduct = document.getElementById(Number(element.id) + 1);
                 document.getElementById('text-warning').innerHTML = "Producto inexistente!";
                 document.querySelector('.container-msg-warning').classList.remove('hidden');
                 document.querySelector('.btn-aceptar-warning').focus();
             }
-
         }
 
     }
@@ -216,16 +213,16 @@ document.addEventListener('keydown', (event) => {
             case 40:
                 pressDownInput(event)
                 break;
-                // press up
+            // press up
             case 38:
                 pressUpInput(event);
                 break;
-                // press enter 
+            // press enter 
             case 13:
                 pressEnterInput(event);
                 break;
             case 9:
-                if (document.querySelector('.div-msg-confirmacion').style.display !== 'none') {}
+                if (document.querySelector('.div-msg-confirmacion').style.display !== 'none') { }
                 break;
             default:
 
@@ -246,7 +243,7 @@ document.addEventListener('keydown', (event) => {
 
 
 // Verifico si el usuario cambio el estado del pedido
-select.addEventListener('change', function() {
+select.addEventListener('change', function () {
     if (this.selectedIndex !== selectedIndex) {
         document.getElementById('estado_modificado').value = 1;
     } else {
@@ -370,7 +367,7 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
             // Seteando los atributos
             divItem.setAttribute("id", `item-${cantidadOfItems + 1}`);
             // Seteo el color de cada item
-            divItem.setAttribute("class", `div-one-item form-detalle-pedido__item ${(cantidadOfItems % 2 == 0) ? 'color-white': ''}`)
+            divItem.setAttribute("class", `div-one-item form-detalle-pedido__item ${(cantidadOfItems % 2 == 0) ? 'color-white' : ''}`)
 
 
             inputProducto.setAttribute("id", inputsTotal + 1);
@@ -557,27 +554,3 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
     }
 
 })
-
-// Busqueda binaria
-function binarySearch(value, list) {
-    let first = 0; //left endpoint
-    let last = list.length - 1; //right endpoint
-    let position = -1;
-    let found = false;
-    let middle;
-    let count = 0;
-    while (found === false && first <= last) {
-
-        middle = Math.floor((first + last) / 2);
-
-        if (Number(list[middle].innerText.split('*')[0].trim()) == value) {
-            found = true;
-            position = middle;
-        } else if (Number(list[middle].innerText.split('*')[0].trim()) > value) { //if in lower half
-            last = middle - 1;
-        } else { //in in upper half
-            first = middle + 1;
-        }
-    }
-    return position;
-}

@@ -90,7 +90,7 @@ for (let i = 0; i < inputsFormAll.length; i++) {
 for (let i = 0; i < cantidadOfItems; i++) {
 
     if (i % 2 == 0) {
-        document.getElementById(`item-${i + 1 }`).classList.add('color-white');
+        document.getElementById(`item-${i + 1}`).classList.add('color-white');
         // divItemEliminado
     }
 
@@ -104,7 +104,7 @@ function ifHaveFocus(element) {
 }
 
 // Funcion que maneja el evento blur de los nuevos inputs que agrego al DOM
-function ifLostFocus(element) {
+async function ifLostFocus(element) {
 
     if (element.value == '') {
         elementCodProduct = element;
@@ -114,21 +114,18 @@ function ifLostFocus(element) {
 
     } else {
         if (element.classList.contains('cod-prod')) {
-            // Obtengo el input descripcion de producto
             const inputDescripcion = document.getElementById(Number(element.id) + 1);
-            let position = binarySearch(element.value, divProducts);
-            if (position !== -1) {
-                inputDescripcion.value = divProducts[position].innerText.split('*')[1].trim();
+            const res = await fetch(`/productos/${element.value}`)
+            const resJson = await res.json();
+            if (Object.keys(resJson).length > 0) {  // si el producto existe en la BD
+                inputDescripcion.value = resJson.pro_nom;
             } else {
-
                 elementCodProduct = document.getElementById(Number(element.id) + 1);
                 document.getElementById('text-warning').innerHTML = "Producto inexistente!";
                 document.querySelector('.container-msg-warning').classList.remove('hidden');
                 document.querySelector('.btn-aceptar-warning').focus();
             }
-
         }
-
     }
 }
 
@@ -180,7 +177,6 @@ for (let i = 0; i < inputsFormAll.length; i++) {
 // registro los productos que el usuario ha modificado
 document.addEventListener('change', (event) => {
     const inputElement = event.target.parentNode.id.slice(5);
-    console.log(inputElement);
     if (event.target.matches('.input-event') && document.getElementById(`modificado-${inputElement}`).value == 0) {
         document.getElementById(`modificado-${inputElement}`).value = "1";
         document.querySelector('.alert-msg-save').style.display = 'flex';
@@ -206,16 +202,16 @@ document.addEventListener('keydown', (event) => {
             case 40:
                 pressDownInput(event)
                 break;
-                // press up
+            // press up
             case 38:
                 pressUpInput(event);
                 break;
-                // press enter 
+            // press enter 
             case 13:
                 pressEnterInput(event);
                 break;
             case 9:
-                if (document.querySelector('.div-msg-confirmacion').style.display !== 'none') {}
+                if (document.querySelector('.div-msg-confirmacion').style.display !== 'none') { }
                 break;
             default:
 
@@ -235,7 +231,7 @@ document.addEventListener('keydown', (event) => {
 })
 
 // Verifico si el usuario cambio el estado del pedido
-select.addEventListener('change', function() {
+select.addEventListener('change', function () {
     if (this.selectedIndex !== selectedIndex) {
         document.getElementById('estado_modificado').value = 1;
 
@@ -311,12 +307,12 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
             divItemEliminado.children[3].children[0].setAttribute("id", "");
             divItemEliminado.children[3].children[1].setAttribute("id", "");
             divItemEliminado.children[3].children[2].setAttribute("id", "");
-            console.log(divItemEliminado);
+
 
             // Reorganizar los id de los Productos
 
             const allItems = document.querySelectorAll('.div-one-item');
-            // console.log(allItems);
+
             for (let i = idDivEliminado - 1; i < allItems.length; i++) {
                 allItems[i].setAttribute("id", `item-${i + 1}`);
                 allItems[i].children[0].setAttribute("id", 3 * i + 1); // 4*i + 1
@@ -354,7 +350,7 @@ document.addEventListener('click', (event) => { //Antes de event delegation, se 
             // Seteando los atributos
             divItem.setAttribute("id", `item-${cantidadOfItems + 1}`);
             // Seteo el color de cada item
-            divItem.setAttribute("class", `div-one-item form-detalle-pedido__item ${(cantidadOfItems % 2 == 0) ? 'color-white': ''}`)
+            divItem.setAttribute("class", `div-one-item form-detalle-pedido__item ${(cantidadOfItems % 2 == 0) ? 'color-white' : ''}`)
 
 
             inputProducto.setAttribute("id", inputsTotal + 1);

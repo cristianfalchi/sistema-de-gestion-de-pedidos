@@ -23,8 +23,8 @@ const arrayQuery = ["select pedido, cliente, cli_nom, estado, fecha from remitos
 
 const arrayQueryOneOrder = ["select  count(pedido) as cant_ped from (select pedido from remitosremotos where", , " group by pedido, cliente ) as pedidos"];
 // devuelve si el pedido esta escaneado o no
-const arrayQueryEscanOrNoScan = ["select sum(ingresada) as sum_ingresada from remitosremotos where ", ];
-const arrayExistePedido = ["select sum(cantidad) as sum_cantidad from remitosremotos where ", ];
+const arrayQueryEscanOrNoScan = ["select sum(ingresada) as sum_ingresada from remitosremotos where ",];
+const arrayExistePedido = ["select sum(cantidad) as sum_cantidad from remitosremotos where ",];
 
 // funcion para convertir el arrayQuery en un string
 const reducer = (previousValue, currentValue) => previousValue + currentValue;
@@ -32,17 +32,16 @@ const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
 module.exports = {
 
-    homeRemitos: async(req, res) => {
+    homeRemitos: async (req, res) => {
         let message = 'Puede comenzar con la busqueda de pedidos!';
         res.render('remitosremotossearch', { typeMsg: typeMessage.info, message: message });
     },
 
     // Me retorna los items de un pedido
-    getOneRemito: async(req, res) => {
+    getOneRemito: async (req, res) => {
         // conexion a mysql2
         const connection = await connect();
         Remito.removeAttribute('id');
-        Producto.removeAttribute('id');
         const { nroPedido, nroCliente } = req.params;
         const dataSearch = req.query;
         let maxSecuencia = 0; // Me indica la secuencia maxima del producto perteneciente al pedido
@@ -50,8 +49,6 @@ module.exports = {
         let itemsRemitoDB; // producto, descripcion, cantidad EN CRUDO
         let itemsRemitoView = []; // producto, descripcion, cantidad LISTO PARA LA VISTA|
         let dataRemito;
-        let productosDB;
-        const dataProducts = [];
 
         // Sumo las cantidades en columna cantidad para saber si existe el pedido
         arrayExistePedido.splice(1, 1, `pedido = ${nroPedido} and cliente = ${nroCliente}`)
@@ -75,7 +72,7 @@ module.exports = {
             } else {
                 itemsRemitoDB = await Remito.findAll({ attributes: ["producto", "pro_nom", "cantidad", "secuencia"], where: { pedido: nroPedido, cliente: nroCliente }, order: ["pro_nom"] });
                 itemsRemitoDB.forEach(item => itemsRemitoView.push(item.dataValues))
-                    // codigo para unificar cantidades
+                // codigo para unificar cantidades
                 const { unificados, repetidos } = integrarRepetidos(itemsRemitoView);
                 console.log(unificados);
                 console.log(repetidos);
@@ -95,14 +92,8 @@ module.exports = {
             maxSecuencia = await Remito.max('secuencia', { where: { pedido: nroPedido, cliente: nroCliente } });
             // Pruebas
 
-            // Obtengo todos los productos. {codigo , descripcion}
-            productosDB = await Producto.findAll({ attributes: ["producto", "pro_nom"] });
-            for (let i = 0; i < productosDB.length; i++) {
-                dataProducts.push(productosDB[i].dataValues);
-            }
-
-            res.render('detalleremito', { data: itemsRemitoView, dataProducts, nroPedido, nroCliente, escaneado, estadoPedido: dataRemito.dataValues.estado, fechaPedido: dataRemito.dataValues.fecha, clientePedido: dataRemito.dataValues.cli_nom, maxSecuencia, /* datos req.query => */ dataSearch })
-                // res.render('detalleremito', { data: itemsRemitoView, dataProducts: dataProducts, nroPedido: nroPedido, nroCliente: nroCliente, escaneado: escaneado, estadoPedido: dataRemito.dataValues.estado, fechaPedido: dataRemito.dataValues.fecha, clientePedido: dataRemito.dataValues.cli_nom, maxSecuencia, /* datos req.query => */ dataSearch })
+            res.render('detalleremito', { data: itemsRemitoView, nroPedido, nroCliente, escaneado, estadoPedido: dataRemito.dataValues.estado, fechaPedido: dataRemito.dataValues.fecha, clientePedido: dataRemito.dataValues.cli_nom, maxSecuencia, /* datos req.query => */ dataSearch })
+            // res.render('detalleremito', { data: itemsRemitoView, dataProducts: dataProducts, nroPedido: nroPedido, nroCliente: nroCliente, escaneado: escaneado, estadoPedido: dataRemito.dataValues.estado, fechaPedido: dataRemito.dataValues.fecha, clientePedido: dataRemito.dataValues.cli_nom, maxSecuencia, /* datos req.query => */ dataSearch })
         } else {
             message = `Atencion! El pedido Nro: ${nroPedido} está anulado.`;
             return res.render('remitosremotossearch', { typeMsg: typeMessage.warning, message: message, dataSearch });
@@ -111,7 +102,7 @@ module.exports = {
     },
 
     // Metodo que trae todos los pedidos
-    getRemitos: async(req, res) => {
+    getRemitos: async (req, res) => {
         // conexion a mysql2
         const connection = await connect();
         const { pedido, cliente, estado, fecha_desde, fecha_hasta } = req.body;
@@ -218,7 +209,7 @@ module.exports = {
             }
         }
     },
-    nextOrBeforePage: async(req, res) => {
+    nextOrBeforePage: async (req, res) => {
         let { next, cant_ped, offset, limit, currentPage, pages, conditionQuery } = req.query;
         const connection = await connect();
         if (!next || next == 1) {
@@ -238,7 +229,7 @@ module.exports = {
 
     },
 
-    updateRemito: async(req, res) => {
+    updateRemito: async (req, res) => {
 
         // conexion a mysql2
         const connection = await connect();
@@ -316,7 +307,7 @@ module.exports = {
         res.render('remitosremotossearch', { typeMsg: typeMessage.info, message: message });
     },
 
-    deleteRemito: async(req, res) => {
+    deleteRemito: async (req, res) => {
 
         Remito.removeAttribute('id');
 
