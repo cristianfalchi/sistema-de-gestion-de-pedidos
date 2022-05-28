@@ -1,4 +1,4 @@
-# sistema-de-gestion-de-pedidos
+# Sistema de Gestion de Pedidos
 La aplicación permite gestionar los pedidos realizados por los vendedores para una empresa de comercialización de productos varios.
 La aplicacion lee pedidos, filtrados por distintos criterios, desde una base de datos mysql. 
 Se permite editar el pedido, agregar nuevos productos al pedido, eliminar productos del pedido.
